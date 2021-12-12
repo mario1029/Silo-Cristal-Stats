@@ -78,7 +78,7 @@ const insertInstrument = async (body) => {
   }
 };
 
-const updateInstrument = async (body, id) => {
+const updateInstrument = async (body) => {
   const client = await pool.connect();
   const {
     codigo_instrumento,

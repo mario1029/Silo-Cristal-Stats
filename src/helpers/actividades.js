@@ -82,7 +82,7 @@ const insertActivity = async (body) => {
   }
 };
 
-const updateActivity = async (body, id) => {
+const updateActivity = async (body) => {
   const client = await pool.connect();
   const { codigo_actividad, codigo_instrumento, hora_inicio, hora_fin, fecha } =
     body;
@@ -120,7 +120,7 @@ const deleteActivity = async (id) => {
   try {
     await client.query('BEGIN');
     const response =
-      (await client.query(queries.DELETE_INSTRUMENT, [id])).rows[0] > 0;
+      (await client.query(queries.DELETE_ACTIVITY, [id])).rows[0] > 0;
     const activity = {
       codigo_actividad: response.codigo_actividad,
       codigo_instrumento: response.codigo_instrumento,

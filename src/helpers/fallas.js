@@ -58,7 +58,7 @@ const getLossByID = async (id) => {
 
 const insertLoss = async (body) => {
   const client = await pool.connect();
-  const { codigo_instrumento, hora_inicio, hora_fin } = body;
+  const { codigo_instrumento, hora_inicio, hora_fin, motivo, perdida } = body;
   try {
     await client.query('BEGIN');
     const response = (
@@ -66,6 +66,8 @@ const insertLoss = async (body) => {
         codigo_instrumento,
         hora_inicio,
         hora_fin,
+        motivo,
+        perdida,
       ])
     ).rows[0];
     const activity = {
@@ -88,7 +90,7 @@ const insertLoss = async (body) => {
   }
 };
 
-const updateLoss = async (body, id) => {
+const updateLoss = async (body) => {
   const client = await pool.connect();
   const {
     codigo_error,
@@ -139,7 +141,7 @@ const deleteLoss = async (id) => {
     const response =
       (await client.query(queries.DELETE_LOSS, [id])).rows[0] > 0;
     const activity = {
-      codigo_actividad: response.codigo_actividad,
+      codigo_error: response.codigo_error,
       codigo_instrumento: response.codigo_instrumento,
       hora_inicio: response.hora_inicio,
       hora_fin: response.hora_fin,

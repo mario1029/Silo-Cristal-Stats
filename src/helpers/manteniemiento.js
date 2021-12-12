@@ -57,7 +57,7 @@ const getMaintenanceByID = async (id) => {
 
 const insertMaintenance = async (body) => {
   const client = await pool.connect();
-  const { codigo_instrumento, hora_inicio, hora_fin } = body;
+  const { codigo_instrumento, hora_inicio, hora_fin, motivo } = body;
   try {
     await client.query('BEGIN');
     const response = (
@@ -65,6 +65,7 @@ const insertMaintenance = async (body) => {
         codigo_instrumento,
         hora_inicio,
         hora_fin,
+        motivo,
       ])
     ).rows[0];
     const activity = {
@@ -86,7 +87,7 @@ const insertMaintenance = async (body) => {
   }
 };
 
-const updateMaintenance = async (body, id) => {
+const updateMaintenance = async (body) => {
   const client = await pool.connect();
   const {
     codigo_mantenimiento,
